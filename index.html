@@ -103,21 +103,21 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .biz{display:grid;gap:24px}
 .biz-main,.biz-sub{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 24px 60px -36px rgba(12,60,96,.45);display:grid;transition:box-shadow .5s}
 .biz-main{grid-template-columns:1.35fr 1fr;height:clamp(380px,34vw,480px)}
-.biz-sub{grid-template-columns:220px 1fr;align-items:center}
+.biz-sub{grid-template-columns:minmax(260px,30%) 1fr;align-items:stretch;height:clamp(200px,17vw,240px)}
 .biz-main:hover,.biz-sub:hover{box-shadow:0 32px 70px -36px rgba(12,60,96,.55)}
 .biz-img{position:relative;overflow:hidden;background:var(--navy);height:100%}
-.biz-sub .biz-img{aspect-ratio:4/3;height:auto}
+.biz-sub .biz-img{height:100%}
 .biz-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);mix-blend-mode:luminosity;opacity:.85;transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}
 .biz-img::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(27,153,232,.35),rgba(12,60,96,.55))}
 .biz-main:hover .biz-img img,.biz-sub:hover .biz-img img{transform:scale(1.05)}
 .biz-body{padding:clamp(28px,4vw,56px)}
 .biz-main .biz-body{display:flex;flex-direction:column;justify-content:center}
-.biz-sub .biz-body{padding:24px 32px}
+.biz-sub .biz-body{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:center}
 .biz-en{font-size:11px;letter-spacing:.3em;color:var(--blue);font-weight:600}
 .biz-main h3{font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:.08em;margin:12px 0 20px;line-height:1.4}
-.biz-sub h3{font-size:17px;font-weight:700;letter-spacing:.08em;margin:4px 0 6px}
+.biz-sub h3{font-size:clamp(19px,1.8vw,22px);font-weight:700;letter-spacing:.08em;margin:8px 0 12px}
 .biz-main .biz-body>p:not(.biz-en){font-size:15px;color:var(--sub);line-height:2.1}
-.biz-sub .biz-body>p:not(.biz-en){font-size:13px;color:var(--sub);line-height:1.9}
+.biz-sub .biz-body>p:not(.biz-en){font-size:14px;color:var(--sub);line-height:2}
 .biz-link{margin-top:28px;align-self:flex-start;color:var(--blue);font-weight:700;font-size:14px;letter-spacing:.1em;border-bottom:1px solid currentColor;padding-bottom:4px;transition:letter-spacing .3s}
 .biz-link:hover{letter-spacing:.16em}
 
@@ -232,7 +232,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 @media (max-width:600px){
   body{font-size:14px}
   .svc-grid,.f2{grid-template-columns:1fr}
-  .biz-sub{grid-template-columns:96px 1fr;align-items:stretch}
+  .biz-sub{grid-template-columns:120px 1fr;align-items:stretch;height:auto}
   .biz-sub .biz-img{aspect-ratio:auto;height:100%}
   .biz-sub .biz-body{padding:16px 18px}
   .bld-grid{grid-template-columns:1fr 1fr;gap:16px 12px}
