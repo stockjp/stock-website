@@ -406,8 +406,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       <div class="map-side">
         <p class="map-en en">AREA MAP</p>
         <h3>東京23区を中心に<br>開発しています</h3>
-        <p>点にマウスを乗せる（スマホはタップ）と、物件名と写真が表示されます。</p>
-        <p class="map-note" id="mapNote"></p>
       </div>
     </div>
 
@@ -555,7 +553,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       svg.appendChild(g);
     });
     document.addEventListener('click',function(){tip.classList.remove('show');if(cur)cur.classList.remove('on');});
-    if(out.length)document.getElementById('mapNote').textContent='ほか埼玉エリア：'+out.join('・');
   })();
 
   var hd=document.getElementById('hd');
