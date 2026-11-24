@@ -176,6 +176,25 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .bld-cat{position:absolute;left:8px;top:8px;font-size:10px;letter-spacing:.1em;background:rgba(255,255,255,.9);color:var(--blue);padding:2px 9px;border-radius:999px;font-weight:700}
 .bld h3{font-size:13px;font-weight:700;margin-top:10px;letter-spacing:.04em;line-height:1.5}
 .bld p{font-size:11px;color:var(--sub);line-height:1.6}
+.mapbox{display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(28px,4vw,56px);align-items:center;margin-bottom:clamp(56px,7vw,88px)}
+.map{position:relative;background:#fff;border-radius:8px;box-shadow:0 24px 60px -36px rgba(12,60,96,.45);padding:clamp(12px,2vw,24px)}
+.map-base{display:block;width:100%;height:auto}
+.map-pts{position:absolute;top:clamp(12px,2vw,24px);left:clamp(12px,2vw,24px);right:clamp(12px,2vw,24px);bottom:clamp(12px,2vw,24px);width:calc(100% - 2*clamp(12px,2vw,24px));height:calc(100% - 2*clamp(12px,2vw,24px))}
+.pt{cursor:pointer;outline:none}.pt .dot{fill:#1B99E8;stroke:#fff;stroke-width:.8;transition:fill .2s}
+.pt .halo{fill:#1B99E8;opacity:.2;transform-box:fill-box;transform-origin:center;animation:pulse 2.8s infinite}
+.pt:hover .dot,.pt.on .dot{fill:#0C3C60}
+@keyframes pulse{0%{transform:scale(.6);opacity:.35}100%{transform:scale(1.9);opacity:0}}
+.tip{position:absolute;z-index:3;pointer-events:none;background:#fff;border-radius:6px;box-shadow:0 12px 30px -10px rgba(12,60,96,.45);padding:8px;width:150px;transform:translate(-50%,calc(-100% - 12px));opacity:0;transition:opacity .2s}
+.tip.show{opacity:1}
+.tip img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;display:block}
+.tip b{display:block;font-size:12px;margin-top:6px;letter-spacing:.04em}
+.map-label{position:absolute;left:clamp(20px,3vw,36px);bottom:clamp(16px,2.4vw,30px);font-size:12px;letter-spacing:.3em;color:var(--mid)}
+.map-side .map-en{font-size:12px;letter-spacing:.3em;color:var(--blue);font-weight:600}
+.map-side h3{font-size:clamp(22px,2.4vw,30px);font-weight:700;letter-spacing:.06em;line-height:1.6;margin:10px 0 16px}
+.map-side p{color:var(--sub);font-size:14px}
+.map-note{margin-top:14px;font-size:13px}
+@media (max-width:960px){.mapbox{grid-template-columns:1fr}.map-side{order:-1}}
+@media (prefers-reduced-motion:reduce){.pt .halo{animation:none}}
 .consult{margin-top:clamp(64px,8vw,104px);background:#fff;border-radius:8px;padding:clamp(28px,4vw,52px);display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;box-shadow:0 20px 60px -30px rgba(12,60,96,.3);border-left:4px solid var(--blue)}
 .consult .btn{margin-top:0}
 .consult-en{font-size:11px;letter-spacing:.3em;color:var(--blue);font-weight:600}
@@ -377,6 +396,21 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       <span class="idx">03 / 04</span>
     </div>
 
+    <div class="mapbox rv">
+      <div class="map" id="map">
+        <img class="map-base" src="img/tokyo-map.svg" alt="東京23区の地図" width="760" height="640">
+        <svg class="map-pts" id="pts" viewBox="318 270 190 160" aria-label="開発物件の所在地"></svg>
+        <div class="tip" id="tip" aria-hidden="true"><img alt=""><b></b></div>
+        <span class="map-label en">TOKYO 23 WARDS</span>
+      </div>
+      <div class="map-side">
+        <p class="map-en en">AREA MAP</p>
+        <h3>東京23区を中心に<br>開発しています</h3>
+        <p>点にマウスを乗せる（スマホはタップ）と、物件名と写真が表示されます。</p>
+        <p class="map-note" id="mapNote"></p>
+      </div>
+    </div>
+
     <div class="bld-grid" id="bld"></div>
 
     <div class="consult rv">
@@ -441,52 +475,52 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 (function(){
   // ===== 管理・開発物件リスト =====
   // 物件が増えたら、ここに1行追加するだけで一覧と棟数が自動で更新されます
-  // [物件名, 所在地・竣工年（社内メモ用・HPには表示しない）, 写真ファイル]
+  // [物件名, 所在地・竣工年（社内メモ用・HPには表示しない）, 写真ファイル, 緯度, 経度（地図用・おおよその位置）]
   var items=[
-    ["マガザン大森","大田区・建設中","img/b/73b5a8a8eb66.jpg"],
-    ["マガザン上野広小路","文京区・建設中","img/b/73b5a8a8eb66.jpg"],
-    ["マガザン渋谷","渋谷区・建設中","img/b/cadcc11fc194.jpg"],
-    ["マガザン三軒茶屋Ⅱ","世田谷区・建設中","img/b/73b5a8a8eb66.jpg"],
-    ["マガザン阿佐ヶ谷Ⅲ","杉並区・建設中","img/b/6fbfe7336b53.jpg"],
-    ["マガザン川越","川越市・建設中","img/b/73b5a8a8eb66.jpg"],
-    ["マガザン三軒茶屋","世田谷区・建設中","img/b/80cb605e526a.jpg"],
-    ["マガザン荒木町","新宿区・建設中","img/b/d76be7580642.jpg"],
-    ["マガザン阿佐ヶ谷Ⅱ","杉並区・建設中","img/b/73b5a8a8eb66.jpg"],
-    ["マガザン阿佐ヶ谷","杉並区・建設中","img/b/50ab9a813266.jpg"],
-    ["マガザン恵比寿","渋谷区・建設中","img/b/8fe6dedba999.jpg"],
-    ["マガザン下北沢","世田谷区・建設中","img/b/faee6b3b8485.jpg"],
-    ["マガザン三田慶應仲通りⅡ","港区","img/b/5f369cf6af62.jpg"],
-    ["マガザン東池袋","豊島区・建設中","img/b/8ae5a1f9f305.jpg"],
-    ["マガザン浦和","さいたま市浦和区・2021年","img/b/eee3bde23d11.jpg"],
-    ["マガザン経堂","世田谷区・2021年","img/b/7255e1ab6776.jpg"],
-    ["マガザン荻窪","杉並区・2021年","img/b/5bb663575d99.jpg"],
-    ["マガザン阿佐ヶ谷南","杉並区・2020年","img/b/2751a71eee93.jpg"],
-    ["マガザン人形町Ⅱ","中央区・2020年","img/b/286b0c78e955.jpg"],
-    ["フレーミー麻布十番","港区・2019年","img/b/b0534d641f9d.jpg"],
-    ["マガザン銀座東","中央区・2016年","img/b/682090618da2.jpg"],
-    ["マガザン中野","中野区・2019年","img/b/f8bb180aa5a4.jpg"],
-    ["マガザン谷中","台東区・2019年","img/b/28bfad337545.jpg"],
-    ["マガザン大宮","さいたま市大宮区・2018年","img/b/70bda40d2281.jpg"],
-    ["マガザン門前仲町Ⅲ","江東区・2020年","img/b/2497521d2c71.jpg"],
-    ["マガザン御徒町Ⅱ","台東区・2017年","img/b/380896096950.jpg"],
-    ["マガザン門前仲町","江東区・2016年","img/b/ec52812ec45c.jpg"],
-    ["マガザン御徒町","台東区・2016年","img/b/de1bbd2e8bf5.jpg"],
-    ["マガザン月島","中央区・2017年","img/b/6d80fbe220f8.jpg"],
-    ["マガザン東上野","台東区・2016年","img/b/e50b42de83a6.jpg"],
-    ["マガザン三田慶應仲通り","港区","img/b/9367e9d181b7.jpg"],
-    ["マガザン飯田橋","千代田区・2018年","img/b/a2411580d50b.jpg"],
-    ["マガザン白山","文京区・2016年","img/b/505150fce504.jpg"],
-    ["マガザン御徒町Ⅲ","台東区・2017年","img/b/456ced13f0a0.jpg"],
-    ["マガザン銀座東Ⅱ","中央区・2017年","img/b/c1f0fef3dc3f.jpg"],
-    ["マガザン高円寺","杉並区・2018年","img/b/9d953b826668.jpg"],
-    ["マガザン月島Ⅱ","中央区・2017年","img/b/dfaf4a9bb478.jpg"],
-    ["マガザン人形町","中央区・2018年","img/b/9d5161e6a5ba.jpg"],
-    ["マガザン月島Ⅲ","中央区・2018年","img/b/469152bc2ffc.jpg"],
-    ["マガザン門前仲町Ⅱ","江東区・2018年","img/b/6b20ccdd917a.jpg"],
-    ["マガザン西荻窪","杉並区・2018年","img/b/8fe93cd09326.jpg"],
-    ["マガザン神田","千代田区・2017年","img/b/d6c182a20ab2.jpg"],
-    ["マガザン神田Ⅱ","千代田区・2018年","img/b/926dae6a019b.jpg"],
-    ["マガザン下高井戸","世田谷区・2017年","img/b/77f58b3f4f1d.jpg"]
+    ["マガザン大森", "大田区・建設中", "img/b/73b5a8a8eb66.jpg", 35.5885, 139.729],
+    ["マガザン上野広小路", "文京区・建設中", "img/b/73b5a8a8eb66.jpg", 35.707, 139.77],
+    ["マガザン渋谷", "渋谷区・建設中", "img/b/cadcc11fc194.jpg", 35.6565, 139.6955],
+    ["マガザン三軒茶屋Ⅱ", "世田谷区・建設中", "img/b/73b5a8a8eb66.jpg", 35.644, 139.669],
+    ["マガザン阿佐ヶ谷Ⅲ", "杉並区・建設中", "img/b/6fbfe7336b53.jpg", 35.706, 139.637],
+    ["マガザン川越", "川越市・建設中", "img/b/73b5a8a8eb66.jpg", 35.918, 139.483],
+    ["マガザン三軒茶屋", "世田谷区・建設中", "img/b/80cb605e526a.jpg", 35.6395, 139.6745],
+    ["マガザン荒木町", "新宿区・建設中", "img/b/d76be7580642.jpg", 35.689, 139.7215],
+    ["マガザン阿佐ヶ谷Ⅱ", "杉並区・建設中", "img/b/73b5a8a8eb66.jpg", 35.703, 139.638],
+    ["マガザン阿佐ヶ谷", "杉並区・建設中", "img/b/50ab9a813266.jpg", 35.7035, 139.6365],
+    ["マガザン恵比寿", "渋谷区・建設中", "img/b/8fe6dedba999.jpg", 35.6485, 139.712],
+    ["マガザン下北沢", "世田谷区・建設中", "img/b/faee6b3b8485.jpg", 35.662, 139.668],
+    ["マガザン三田慶應仲通りⅡ", "港区", "img/b/5f369cf6af62.jpg", 35.6475, 139.7465],
+    ["マガザン東池袋", "豊島区・建設中", "img/b/8ae5a1f9f305.jpg", 35.729, 139.7175],
+    ["マガザン浦和", "さいたま市浦和区・2021年", "img/b/eee3bde23d11.jpg", 35.859, 139.656],
+    ["マガザン経堂", "世田谷区・2021年", "img/b/7255e1ab6776.jpg", 35.6505, 139.6363],
+    ["マガザン荻窪", "杉並区・2021年", "img/b/5bb663575d99.jpg", 35.7055, 139.6195],
+    ["マガザン阿佐ヶ谷南", "杉並区・2020年", "img/b/2751a71eee93.jpg", 35.7, 139.6375],
+    ["マガザン人形町Ⅱ", "中央区・2020年", "img/b/286b0c78e955.jpg", 35.6845, 139.7825],
+    ["フレーミー麻布十番", "港区・2019年", "img/b/b0534d641f9d.jpg", 35.654, 139.7355],
+    ["マガザン銀座東", "中央区・2016年", "img/b/682090618da2.jpg", 35.673, 139.7755],
+    ["マガザン中野", "中野区・2019年", "img/b/f8bb180aa5a4.jpg", 35.7085, 139.665],
+    ["マガザン谷中", "台東区・2019年", "img/b/28bfad337545.jpg", 35.7262, 139.766],
+    ["マガザン大宮", "さいたま市大宮区・2018年", "img/b/70bda40d2281.jpg", 35.906, 139.623],
+    ["マガザン門前仲町Ⅲ", "江東区・2020年", "img/b/2497521d2c71.jpg", 35.6705, 139.798],
+    ["マガザン御徒町Ⅱ", "台東区・2017年", "img/b/380896096950.jpg", 35.7065, 139.779],
+    ["マガザン門前仲町", "江東区・2016年", "img/b/ec52812ec45c.jpg", 35.6715, 139.7955],
+    ["マガザン御徒町", "台東区・2016年", "img/b/de1bbd2e8bf5.jpg", 35.7068, 139.78],
+    ["マガザン月島", "中央区・2017年", "img/b/6d80fbe220f8.jpg", 35.663, 139.783],
+    ["マガザン東上野", "台東区・2016年", "img/b/e50b42de83a6.jpg", 35.7105, 139.779],
+    ["マガザン三田慶應仲通り", "港区", "img/b/9367e9d181b7.jpg", 35.6476, 139.7466],
+    ["マガザン飯田橋", "千代田区・2018年", "img/b/a2411580d50b.jpg", 35.7008, 139.7468],
+    ["マガザン白山", "文京区・2016年", "img/b/505150fce504.jpg", 35.7225, 139.752],
+    ["マガザン御徒町Ⅲ", "台東区・2017年", "img/b/456ced13f0a0.jpg", 35.708, 139.7745],
+    ["マガザン銀座東Ⅱ", "中央区・2017年", "img/b/c1f0fef3dc3f.jpg", 35.6725, 139.774],
+    ["マガザン高円寺", "杉並区・2018年", "img/b/9d953b826668.jpg", 35.708, 139.65],
+    ["マガザン月島Ⅱ", "中央区・2017年", "img/b/dfaf4a9bb478.jpg", 35.664, 139.7835],
+    ["マガザン人形町", "中央区・2018年", "img/b/9d5161e6a5ba.jpg", 35.682, 139.7835],
+    ["マガザン月島Ⅲ", "中央区・2018年", "img/b/469152bc2ffc.jpg", 35.6635, 139.7825],
+    ["マガザン門前仲町Ⅱ", "江東区・2018年", "img/b/6b20ccdd917a.jpg", 35.672, 139.7965],
+    ["マガザン西荻窪", "杉並区・2018年", "img/b/8fe93cd09326.jpg", 35.7015, 139.5995],
+    ["マガザン神田", "千代田区・2017年", "img/b/d6c182a20ab2.jpg", 35.6925, 139.7705],
+    ["マガザン神田Ⅱ", "千代田区・2018年", "img/b/926dae6a019b.jpg", 35.6935, 139.768],
+    ["マガザン下高井戸", "世田谷区・2017年", "img/b/77f58b3f4f1d.jpg", 35.6655, 139.641]
   ];
   var tones=[["#E4F1FC","#6EA4CA"],["#CFE5F7","#1B99E8"],["#EEF6FD","#AFCBE0"],["#DAEDFF","#39729B"],["#E4F1FC","#1468A8"]];
   var g=document.getElementById('bld'),html='';
@@ -497,6 +531,32 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     html+='<article class="bld rv"><div class="bld-img">'+media+'</div><h3>'+it[0]+'</h3></article>';
   });
   g.innerHTML=html;
+
+  // ===== エリアマップ（パンフレットの地図に合わせて緯度経度を変換） =====
+  (function(){
+    var svg=document.getElementById('pts'),map=document.getElementById('map'),tip=document.getElementById('tip');
+    if(!svg)return;
+    var NS='http://www.w3.org/2000/svg',out=[],cur=null;
+    function px(lat,lon){return [614.54485*lon+42.46981*lat-86970.80204, 27.96001*lon-712.1151*lat+21843.56111];}
+    items.forEach(function(it){
+      if(it[3]==null)return;
+      var p=px(it[3],it[4]);
+      if(p[0]<320||p[0]>506||p[1]<272||p[1]>428){out.push(it[0].replace('マガザン',''));return;}
+      var g=document.createElementNS(NS,'g');g.setAttribute('class','pt');g.setAttribute('transform','translate('+p[0].toFixed(2)+','+p[1].toFixed(2)+')');
+      g.innerHTML='<circle class="halo" r="4.5"/><circle class="dot" r="2.2"/>';
+      g.setAttribute('tabindex','0');g.setAttribute('aria-label',it[0]);
+      function show(){var r=g.querySelector('.dot').getBoundingClientRect(),m=map.getBoundingClientRect();
+        tip.style.left=Math.min(Math.max(r.left-m.left+r.width/2,80),m.width-80)+'px';tip.style.top=(r.top-m.top)+'px';
+        tip.querySelector('b').textContent=it[0];var im=tip.querySelector('img');if(it[2]){im.src=it[2];im.style.display='block'}else{im.style.display='none'}
+        if(cur)cur.classList.remove('on');cur=g;g.classList.add('on');tip.classList.add('show');}
+      function hide(){tip.classList.remove('show');g.classList.remove('on');}
+      g.addEventListener('mouseenter',show);g.addEventListener('mouseleave',hide);g.addEventListener('focus',show);g.addEventListener('blur',hide);
+      g.addEventListener('click',function(e){e.stopPropagation();show();});
+      svg.appendChild(g);
+    });
+    document.addEventListener('click',function(){tip.classList.remove('show');if(cur)cur.classList.remove('on');});
+    if(out.length)document.getElementById('mapNote').textContent='ほか埼玉エリア：'+out.join('・');
+  })();
 
   var hd=document.getElementById('hd');
   function onScroll(){hd.classList.toggle('scrolled',window.scrollY>40)}
