@@ -56,8 +56,8 @@ body.menu-open .burger span:nth-child(2){top:19px;transform:rotate(-45deg)}
 
 /* hero */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(160deg,#F6FBFF 0%,#E4F1FC 55%,#CFE5F7 100%)}
-.hero-art{position:absolute;top:0;right:0;bottom:0;width:62%;pointer-events:none;opacity:.42;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 45%);mask-image:linear-gradient(90deg,transparent 0%,#000 45%)}
-.hero-art img{width:100%;height:100%;object-fit:cover;object-position:center 60%;mix-blend-mode:multiply}
+.hero-art{position:absolute;inset:0;pointer-events:none;opacity:.6}
+.hero-art svg{width:100%;height:100%}
 .hero-inner{position:relative;z-index:2;width:100%;padding-top:76px}
 .hero .lbl{font-family:var(--en);font-size:12px;letter-spacing:.34em;color:var(--blue);display:flex;align-items:center;gap:14px;font-weight:500}
 .hero .lbl::before{content:"";width:40px;height:1px;background:currentColor}
@@ -211,7 +211,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   .svc-grid{grid-template-columns:1fr 1fr}
   .bld-grid{grid-template-columns:repeat(3,1fr)}
   .scroll{display:none}
-  .hero-art{width:100%;opacity:.25}
+  .hero-art{opacity:.35}
 }
 @media (max-width:600px){
   body{font-size:14px}
@@ -243,7 +243,29 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 
 <!-- HERO -->
 <section class="hero" style="padding:0">
-  <div class="hero-art" aria-hidden="true"><img src="img/hero-kyodo.jpg" alt=""></div>
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMaxYMax slice">
+      <defs>
+        <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".8"/><stop offset=".5" stop-color="#AFCBE0" stop-opacity=".5"/><stop offset="1" stop-color="#6EA4CA" stop-opacity=".4"/></linearGradient>
+        <linearGradient id="gl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DAEDFF" stop-opacity=".95"/><stop offset="1" stop-color="#AFCBE0" stop-opacity=".65"/></linearGradient>
+        <linearGradient id="refl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".7"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".6" stop-color="#fff" stop-opacity="1"/></linearGradient>
+        <mask id="m"><rect width="1600" height="1000" fill="url(#fade)"/></mask>
+      </defs>
+      <circle cx="1250" cy="300" r="260" fill="#ffffff" fill-opacity=".6"/>
+      <g mask="url(#m)" stroke="#6EA4CA" stroke-opacity=".55" stroke-width="1.5">
+        <rect x="560" y="668" width="170" height="272" fill="#EEF6FD"/><rect x="574" y="682" width="40" height="38" fill="#DAEDFF"/><rect x="632" y="682" width="40" height="38" fill="#DAEDFF"/><rect x="574" y="750" width="40" height="38" fill="#DAEDFF"/><rect x="632" y="750" width="40" height="38" fill="#DAEDFF"/><rect x="574" y="818" width="40" height="38" fill="#DAEDFF"/><rect x="632" y="818" width="40" height="38" fill="#DAEDFF"/><line x1="560" y1="668" x2="730" y2="668" stroke="#0C3C60" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="730" y="568" width="130" height="372" fill="#EEF6FD"/><line x1="730" y1="630" x2="860" y2="630"/><line x1="730" y1="692" x2="860" y2="692"/><line x1="730" y1="754" x2="860" y2="754"/><line x1="730" y1="816" x2="860" y2="816"/><line x1="730" y1="878" x2="860" y2="878"/><line x1="795" y1="568" x2="795" y2="940" stroke-opacity=".3"/><rect x="731" y="878" width="128" height="61" fill="#1B99E8" fill-opacity=".10" stroke="none"/><polygon points="742,568 770,568 752,940 724,940" fill="url(#refl)" stroke="none" opacity=".5"/><line x1="730" y1="568" x2="860" y2="568" stroke="#0C3C60" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="860" y="692" width="210" height="248" fill="url(#gl2)"/><line x1="860" y1="754" x2="1070" y2="754"/><line x1="860" y1="816" x2="1070" y2="816"/><line x1="860" y1="878" x2="1070" y2="878"/><line x1="930" y1="692" x2="930" y2="940" stroke-opacity=".3"/><line x1="1000" y1="692" x2="1000" y2="940" stroke-opacity=".3"/><rect x="861" y="878" width="208" height="61" fill="#1B99E8" fill-opacity=".10" stroke="none"/><polygon points="872,692 900,692 882,940 854,940" fill="url(#refl)" stroke="none" opacity=".5"/><line x1="860" y1="692" x2="1070" y2="692" stroke="#0C3C60" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="1086" y="692" width="130" height="248" fill="#EEF6FD"/><rect x="1100" y="706" width="40" height="32" fill="#DAEDFF"/><rect x="1158" y="706" width="40" height="32" fill="#DAEDFF"/><rect x="1100" y="768" width="40" height="32" fill="#DAEDFF"/><rect x="1158" y="768" width="40" height="32" fill="#DAEDFF"/><rect x="1100" y="830" width="40" height="32" fill="#DAEDFF"/><rect x="1158" y="830" width="40" height="32" fill="#DAEDFF"/><line x1="1086" y1="692" x2="1216" y2="692" stroke="#0C3C60" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="1232" y="568" width="130" height="372" fill="#EEF6FD"/><line x1="1232" y1="630" x2="1362" y2="630"/><line x1="1232" y1="692" x2="1362" y2="692"/><line x1="1232" y1="754" x2="1362" y2="754"/><line x1="1232" y1="816" x2="1362" y2="816"/><line x1="1232" y1="878" x2="1362" y2="878"/><line x1="1297" y1="568" x2="1297" y2="940" stroke-opacity=".3"/><rect x="1233" y="878" width="128" height="61" fill="#1B99E8" fill-opacity=".10" stroke="none"/><polygon points="1244,568 1272,568 1254,940 1226,940" fill="url(#refl)" stroke="none" opacity=".5"/><line x1="1232" y1="568" x2="1362" y2="568" stroke="#0C3C60" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="1362" y="532" width="210" height="408" fill="url(#gl)"/><line x1="1362" y1="600" x2="1572" y2="600"/><line x1="1362" y1="668" x2="1572" y2="668"/><line x1="1362" y1="736" x2="1572" y2="736"/><line x1="1362" y1="804" x2="1572" y2="804"/><line x1="1362" y1="872" x2="1572" y2="872"/><line x1="1432" y1="532" x2="1432" y2="940" stroke-opacity=".3"/><line x1="1502" y1="532" x2="1502" y2="940" stroke-opacity=".3"/><rect x="1363" y="872" width="208" height="67" fill="#1B99E8" fill-opacity=".10" stroke="none"/><polygon points="1374,532 1402,532 1384,940 1356,940" fill="url(#refl)" stroke="none" opacity=".5"/><line x1="1362" y1="532" x2="1572" y2="532" stroke="#0C3C60" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="1572" y="668" width="210" height="272" fill="url(#gl)"/><line x1="1572" y1="736" x2="1782" y2="736"/><line x1="1572" y1="804" x2="1782" y2="804"/><line x1="1572" y1="872" x2="1782" y2="872"/><line x1="1642" y1="668" x2="1642" y2="940" stroke-opacity=".3"/><line x1="1712" y1="668" x2="1712" y2="940" stroke-opacity=".3"/><rect x="1573" y="872" width="208" height="67" fill="#1B99E8" fill-opacity=".10" stroke="none"/><polygon points="1584,668 1612,668 1594,940 1566,940" fill="url(#refl)" stroke="none" opacity=".5"/><line x1="1572" y1="668" x2="1782" y2="668" stroke="#0C3C60" stroke-opacity=".3" stroke-width="2"/>
+      </g>
+      <rect x="0" y="940" width="1600" height="60" fill="#DAEDFF" fill-opacity=".7"/>
+      <line x1="0" y1="940" x2="1600" y2="940" stroke="#6EA4CA" stroke-opacity=".5"/>
+    </svg>
+  </div>
   <div class="wrap hero-inner">
     <div class="lbl">STOCK CO., LTD. — TOKYO</div>
     <h1><span><em>STOCK</em></span><span><em><b>REAL ESTATE</b></em></span></h1>
@@ -428,12 +450,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   // [物件名, 区分(開発/管理/再生), 所在地・竣工年など, 写真ファイル]
   var items=[
     ["マガザン経堂","開発","世田谷区・2021年","img/kyodo.jpg"],
-    ["マガザン銀座東","開発","中央区・2016年",""],
-    ["物件名","再生","所在地・竣工年","img/interior.jpg"],
-    ["物件名","開発","所在地・竣工年",""],["物件名","管理","所在地・竣工年",""],["物件名","開発","所在地・竣工年",""],
-    ["物件名","開発","所在地・竣工年",""],["物件名","管理","所在地・竣工年",""],["物件名","開発","所在地・竣工年",""],
-    ["物件名","再生","所在地・竣工年",""],["物件名","開発","所在地・竣工年",""],["物件名","管理","所在地・竣工年",""],
-    ["物件名","開発","所在地・竣工年",""],["物件名","開発","所在地・竣工年",""],["物件名","管理","所在地・竣工年",""]
+    ["マガザン銀座東","開発","中央区・2016年",""]
   ];
   var tones=[["#E4F1FC","#6EA4CA"],["#CFE5F7","#1B99E8"],["#EEF6FD","#AFCBE0"],["#DAEDFF","#39729B"],["#E4F1FC","#1468A8"]];
   var g=document.getElementById('bld'),html='';
@@ -446,6 +463,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   g.innerHTML=html;
   // 棟数カウントアップ
   var cnt=document.getElementById('cnt'),total=items.length,done=false;
+  if(total<10){var cb=cnt.closest('.count');if(cb)cb.style.display='none';}
   function countUp(){if(done)return;done=true;var st=null;function f(ts){if(!st)st=ts;var r=Math.min((ts-st)/1400,1);cnt.textContent=Math.round(total*(1-Math.pow(1-r,3)));if(r<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
   if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){countUp();o.disconnect()}}).observe(cnt)}else{cnt.textContent=total}
   // 絞り込み
