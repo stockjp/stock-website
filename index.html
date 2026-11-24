@@ -69,6 +69,8 @@ body.menu-open .burger span:nth-child(2){top:19px;transform:rotate(-45deg)}
 @keyframes up{to{transform:none}}
 .hero h1.jp-catch{font-family:var(--jp);font-weight:400;font-size:clamp(34px,6vw,88px);line-height:1.35;letter-spacing:.08em}
 .hero h1.jp-catch b{font-weight:700}
+.hero h1.logo-h1{margin:36px 0 40px}
+.hero h1.logo-h1 img{display:block;width:clamp(260px,42vw,600px);height:auto}
 .hero p{font-size:clamp(15px,1.4vw,18px);letter-spacing:.1em;color:var(--navy);opacity:0;animation:fade 1.2s .6s forwards}
 @keyframes fade{to{opacity:1}}
 .scroll{position:absolute;right:var(--gutter);bottom:40px;z-index:2;font-family:var(--en);font-size:11px;letter-spacing:.3em;color:var(--navy);writing-mode:vertical-rl;display:flex;align-items:center;gap:14px}
@@ -148,9 +150,6 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .count-num .en{font-size:clamp(88px,12vw,168px);letter-spacing:-.02em}
 .count-num small{font-size:20px;font-weight:500;color:var(--navy);padding-bottom:14px}
 .count-txt{font-weight:500;letter-spacing:.1em;padding-bottom:18px}
-.filter{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
-.filter button{font:inherit;font-size:13px;letter-spacing:.12em;padding:8px 20px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:all .25s}
-.filter button.on,.filter button:hover{background:var(--blue);border-color:var(--blue);color:#fff}
 .bld-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px 16px}
 .bld{transition:opacity .3s}
 .bld.hide{display:none}
@@ -268,7 +267,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   </div>
   <div class="wrap hero-inner">
     <div class="lbl">STOCK CO., LTD. — TOKYO</div>
-    <h1><span><em>STOCK</em></span><span><em><b>REAL ESTATE</b></em></span></h1>
+    <h1 class="logo-h1"><span><em><img src="img/magasinn-logo.png" alt="MAGASINN SOMEWHERE TOKYO" width="2314" height="1068"></em></span></h1>
     <p>東京都内を中心に不動産の管理・仲介・開発事業を展開している会社です。</p>
   </div>
   <div class="scroll">SCROLL</div>
@@ -367,20 +366,13 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 <section id="buildings" class="buildings">
   <div class="wrap">
     <div class="head rv">
-      <h2>Buildings<small>管理・開発物件</small></h2>
+      <h2>Buildings<small>開発物件</small></h2>
       <span class="idx">03 / 04</span>
     </div>
 
     <div class="count rv">
       <div class="count-num"><span class="en" id="cnt">0</span><small>棟</small></div>
-      <p class="count-txt">これまでに手がけた開発・管理物件</p>
-    </div>
-
-    <div class="filter rv" id="filter">
-      <button class="on" data-f="all">ALL</button>
-      <button data-f="開発">開発</button>
-      <button data-f="管理">管理</button>
-      <button data-f="再生">再生</button>
+      <p class="count-txt">これまでに手がけた開発物件（建設中を含む）</p>
     </div>
 
     <div class="bld-grid" id="bld"></div>
@@ -447,18 +439,60 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 (function(){
   // ===== 管理・開発物件リスト =====
   // 物件が増えたら、ここに1行追加するだけで一覧と棟数が自動で更新されます
-  // [物件名, 区分(開発/管理/再生), 所在地・竣工年など, 写真ファイル]
+  // [物件名, 所在地・竣工年, 写真ファイル]
   var items=[
-    ["マガザン経堂","開発","世田谷区・2021年","img/kyodo.jpg"],
-    ["マガザン銀座東","開発","中央区・2016年",""]
+    ["マガザン大森","大田区・建設中","img/b/73b5a8a8eb66.jpg"],
+    ["マガザン上野広小路","文京区・建設中","img/b/73b5a8a8eb66.jpg"],
+    ["マガザン渋谷","渋谷区・建設中","img/b/cadcc11fc194.jpg"],
+    ["マガザン三軒茶屋Ⅱ","世田谷区・建設中","img/b/73b5a8a8eb66.jpg"],
+    ["マガザン阿佐ヶ谷Ⅲ","杉並区・建設中","img/b/6fbfe7336b53.jpg"],
+    ["マガザン川越","川越市・建設中","img/b/73b5a8a8eb66.jpg"],
+    ["マガザン三軒茶屋","世田谷区・建設中","img/b/80cb605e526a.jpg"],
+    ["マガザン荒木町","新宿区・建設中","img/b/d76be7580642.jpg"],
+    ["マガザン阿佐ヶ谷Ⅱ","杉並区・建設中","img/b/73b5a8a8eb66.jpg"],
+    ["マガザン阿佐ヶ谷","杉並区・建設中","img/b/50ab9a813266.jpg"],
+    ["マガザン恵比寿","渋谷区・建設中","img/b/8fe6dedba999.jpg"],
+    ["マガザン下北沢","世田谷区・建設中","img/b/faee6b3b8485.jpg"],
+    ["マガザン三田慶應仲通りⅡ","港区","img/b/5f369cf6af62.jpg"],
+    ["マガザン東池袋","豊島区・建設中","img/b/8ae5a1f9f305.jpg"],
+    ["マガザン浦和","さいたま市浦和区・2021年","img/b/eee3bde23d11.jpg"],
+    ["マガザン経堂","世田谷区・2021年","img/b/7255e1ab6776.jpg"],
+    ["マガザン荻窪","杉並区・2021年","img/b/5bb663575d99.jpg"],
+    ["マガザン阿佐ヶ谷南","杉並区・2020年","img/b/2751a71eee93.jpg"],
+    ["マガザン人形町Ⅱ","中央区・2020年","img/b/286b0c78e955.jpg"],
+    ["フレーミー麻布十番","港区・2019年","img/b/b0534d641f9d.jpg"],
+    ["マガザン銀座東","中央区・2016年","img/b/682090618da2.jpg"],
+    ["マガザン中野","中野区・2019年","img/b/f8bb180aa5a4.jpg"],
+    ["マガザン谷中","台東区・2019年","img/b/28bfad337545.jpg"],
+    ["マガザン大宮","さいたま市大宮区・2018年","img/b/70bda40d2281.jpg"],
+    ["マガザン門前仲町Ⅲ","江東区・2020年","img/b/2497521d2c71.jpg"],
+    ["マガザン御徒町Ⅱ","台東区・2017年","img/b/380896096950.jpg"],
+    ["マガザン門前仲町","江東区・2016年","img/b/ec52812ec45c.jpg"],
+    ["マガザン御徒町","台東区・2016年","img/b/de1bbd2e8bf5.jpg"],
+    ["マガザン月島","中央区・2017年","img/b/6d80fbe220f8.jpg"],
+    ["マガザン東上野","台東区・2016年","img/b/e50b42de83a6.jpg"],
+    ["マガザン三田慶應仲通り","港区","img/b/9367e9d181b7.jpg"],
+    ["マガザン飯田橋","千代田区・2018年","img/b/a2411580d50b.jpg"],
+    ["マガザン白山","文京区・2016年","img/b/505150fce504.jpg"],
+    ["マガザン御徒町Ⅲ","台東区・2017年","img/b/456ced13f0a0.jpg"],
+    ["マガザン銀座東Ⅱ","中央区・2017年","img/b/c1f0fef3dc3f.jpg"],
+    ["マガザン高円寺","杉並区・2018年","img/b/9d953b826668.jpg"],
+    ["マガザン月島Ⅱ","中央区・2017年","img/b/dfaf4a9bb478.jpg"],
+    ["マガザン人形町","中央区・2018年","img/b/9d5161e6a5ba.jpg"],
+    ["マガザン月島Ⅲ","中央区・2018年","img/b/469152bc2ffc.jpg"],
+    ["マガザン門前仲町Ⅱ","江東区・2018年","img/b/6b20ccdd917a.jpg"],
+    ["マガザン西荻窪","杉並区・2018年","img/b/8fe93cd09326.jpg"],
+    ["マガザン神田","千代田区・2017年","img/b/d6c182a20ab2.jpg"],
+    ["マガザン神田Ⅱ","千代田区・2018年","img/b/926dae6a019b.jpg"],
+    ["マガザン下高井戸","世田谷区・2017年","img/b/77f58b3f4f1d.jpg"]
   ];
   var tones=[["#E4F1FC","#6EA4CA"],["#CFE5F7","#1B99E8"],["#EEF6FD","#AFCBE0"],["#DAEDFF","#39729B"],["#E4F1FC","#1468A8"]];
   var g=document.getElementById('bld'),html='';
   items.forEach(function(it,i){
     var t=tones[i%tones.length],h=[220,160,250,190,140][i%5],win='';
     for(var k=0;k<Math.floor((h-20)/34);k++){win+='<rect x="162" y="'+(400-h+12+k*34)+'" width="76" height="22"/>';}
-    var media=it[3]?'<img src="'+it[3]+'" alt="'+it[0]+'" loading="lazy">':'<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="400" fill="'+t[0]+'"/><rect x="150" y="'+(400-h)+'" width="100" height="'+h+'" fill="'+t[1]+'"/><g fill="#fff" fill-opacity=".35">'+win+'</g></svg>';
-    html+='<article class="bld rv" data-c="'+it[1]+'"><div class="bld-img">'+media+'<span class="bld-cat">'+it[1]+'</span></div><h3>'+it[0]+'</h3><p>'+it[2]+'</p></article>';
+    var media=it[2]?'<img src="'+it[2]+'" alt="'+it[0]+'" loading="lazy">':'<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="400" fill="'+t[0]+'"/><rect x="150" y="'+(400-h)+'" width="100" height="'+h+'" fill="'+t[1]+'"/><g fill="#fff" fill-opacity=".35">'+win+'</g></svg>';
+    html+='<article class="bld rv"><div class="bld-img">'+media+'</div><h3>'+it[0]+'</h3><p>'+it[1]+'</p></article>';
   });
   g.innerHTML=html;
   // 棟数カウントアップ
@@ -466,13 +500,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   if(total<10){var cb=cnt.closest('.count');if(cb)cb.style.display='none';}
   function countUp(){if(done)return;done=true;var st=null;function f(ts){if(!st)st=ts;var r=Math.min((ts-st)/1400,1);cnt.textContent=Math.round(total*(1-Math.pow(1-r,3)));if(r<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
   if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){countUp();o.disconnect()}}).observe(cnt)}else{cnt.textContent=total}
-  // 絞り込み
-  document.getElementById('filter').addEventListener('click',function(e){
-    var b=e.target.closest('button');if(!b)return;
-    this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});
-    var f=b.getAttribute('data-f');
-    g.querySelectorAll('.bld').forEach(function(el){el.classList.toggle('hide',f!=='all'&&el.getAttribute('data-c')!==f)});
-  });
 
   var hd=document.getElementById('hd');
   function onScroll(){hd.classList.toggle('scrolled',window.scrollY>40)}
