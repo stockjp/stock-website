@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>株式会社ストック | STOCK REAL ESTATE</title>
-<meta name="description" content="東京都内を中心に不動産の管理・仲介・開発事業を展開している会社です。">
+<meta name="description" content="東京都内を中心に不動産の開発事業を展開している会社です。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Inter+Tight:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -99,6 +99,19 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .svc h3{font-size:18px;font-weight:700;letter-spacing:.08em;margin:22px 0 14px}
 .svc p{font-size:14px;color:var(--sub);line-height:1.95}
 .svc .ico{position:absolute;top:clamp(28px,3vw,44px);right:clamp(28px,3vw,44px);width:36px;height:36px;color:var(--blue)}
+
+.biz{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,40px)}
+.biz-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 24px 60px -36px rgba(12,60,96,.45);transition:transform .5s cubic-bezier(.2,.7,.1,1),box-shadow .5s}
+.biz-card:hover{transform:translateY(-6px);box-shadow:0 32px 70px -36px rgba(12,60,96,.55)}
+.biz-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--navy)}
+.biz-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);mix-blend-mode:luminosity;opacity:.85;transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}
+.biz-img::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(27,153,232,.35),rgba(12,60,96,.55))}
+.biz-card:hover .biz-img img{transform:scale(1.05)}
+.biz-no{position:absolute;left:24px;bottom:12px;z-index:2;font-weight:200;font-size:clamp(56px,6vw,88px);line-height:1;color:#fff}
+.biz-body{padding:clamp(24px,3vw,40px)}
+.biz-en{font-size:11px;letter-spacing:.3em;color:var(--blue);font-weight:600}
+.biz-body h3{font-size:clamp(20px,2vw,24px);font-weight:700;letter-spacing:.08em;margin:8px 0 14px}
+.biz-body p:last-child{font-size:14px;color:var(--sub);line-height:2}
 
 /* offering */
 .offering{background:var(--pale-2)}
@@ -207,7 +220,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   .intro,.offer,.work,.work:nth-child(even),.ct,.cases{grid-template-columns:1fr}
   .work:nth-child(even) .work-img{order:0}
   .work-img{aspect-ratio:4/3}
-  .svc-grid{grid-template-columns:1fr 1fr}
+  .biz{grid-template-columns:1fr}
   .bld-grid{grid-template-columns:repeat(3,1fr)}
   .scroll{display:none}
   .hero-art{opacity:.35}
@@ -268,7 +281,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   <div class="wrap hero-inner">
     <div class="lbl">STOCK CO., LTD. — TOKYO</div>
     <h1 class="logo-h1"><span><em><img src="img/magasinn-logo.png" alt="MAGASINN SOMEWHERE TOKYO" width="2314" height="1068"></em></span></h1>
-    <p>東京都内を中心に不動産の管理・仲介・開発事業を展開している会社です。</p>
+    <p>東京都内を中心に不動産の開発事業を展開している会社です。</p>
   </div>
   <div class="scroll">SCROLL</div>
 </section>
@@ -281,44 +294,25 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       <span class="idx">01 / 04</span>
     </div>
 
-    <div class="svc-grid">
-      <div class="svc rv">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="7" y="6" width="22" height="26"/><path d="M12 12h4M20 12h4M12 18h4M20 18h4M15 32v-6h6v6"/></svg>
-        <div class="no">01</div>
-        <h3>プロパティマネジメント業務</h3>
-        <p>区分所有マンション・一棟マンション・アパート・ビル等、不動産オーナーの利益目標達成に向けて、個別不動産の運営実務をトータルサポートします。</p>
-      </div>
-      <div class="svc rv">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 32h26M9 32V10l10-4v26M19 14h8v18"/><path d="M13 14h2M13 19h2M13 24h2M22 19h2M22 24h2"/></svg>
-        <div class="no">02</div>
-        <h3>商業ビル建設事業</h3>
-        <p>その土地ごとに周辺の環境に適応した設計を採用することによって、物件とテナントの利益を最大化します。</p>
-      </div>
-      <div class="svc rv">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 32V8h20v24M4 32h28"/><path d="M12 12h4M20 12h4M12 17h4M20 17h4M12 22h4M20 22h4M16 32v-5h4v5"/></svg>
-        <div class="no">03</div>
-        <h3>マンション建設事業</h3>
-        <p>経済性と利便性の両面を備えた住宅の供給を目指して、既存の用途にとらわれず、土地ごとの個性を最大限に引き出す物件開発を行います。</p>
-      </div>
-      <div class="svc rv">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 14h20l-5-5M30 22H10l5 5"/></svg>
-        <div class="no">04</div>
-        <h3>不動産仲介業務</h3>
-        <p>区分所有マンションから一棟ビルまで、流通に掛かるコストを最小化することで、低価格での物件取得を可能にします。</p>
-      </div>
-      <div class="svc rv">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 30h26M9 30V20M16 30V14M23 30V18M30 30V8"/><path d="M8 14l8-6 7 4 7-6"/></svg>
-        <div class="no">05</div>
-        <h3>不動産コンサルティング事業</h3>
-        <p>不動産の現状を分析して、物件の収益向上施策の立案から実行まで、ワンストップでのコンサルティングを行います。</p>
-      </div>
-      <div class="svc rv">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 17L18 7l12 10M9 15v16h18V15"/><path d="M28 6a5 5 0 0 1 2 8M30 6v4h-4"/></svg>
-        <div class="no">06</div>
-        <h3>中古物件再生事業</h3>
-        <p>中古区分所有マンション、古家等を取得し、リノベーションを実施します。建物の立地や個性に見合った価値を実現します。</p>
-      </div>
+    <div class="biz">
+      <article class="biz-card rv">
+        <div class="biz-img"><img src="img/b/f8bb180aa5a4.jpg" alt="マガザン中野" loading="lazy"><span class="biz-no en">01</span></div>
+        <div class="biz-body">
+          <p class="biz-en en">COMMERCIAL BUILDING</p>
+          <h3>商業ビル建設事業</h3>
+          <p>その土地ごとに周辺の環境に適応した設計を採用することによって、物件とテナントの利益を最大化します。</p>
+        </div>
+      </article>
+      <article class="biz-card rv">
+        <div class="biz-img"><img src="img/b/9367e9d181b7.jpg" alt="マガザン三田慶應仲通り" loading="lazy"><span class="biz-no en">02</span></div>
+        <div class="biz-body">
+          <p class="biz-en en">RENOVATION</p>
+          <h3>中古物件再生事業</h3>
+          <p>中古区分所有マンション、古家等を取得し、リノベーションを実施します。建物の立地や個性に見合った価値を実現します。</p>
+        </div>
+      </article>
     </div>
+
   </div>
 </section>
 
@@ -372,7 +366,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 
     <div class="count rv">
       <div class="count-num"><span class="en" id="cnt">0</span><small>棟</small></div>
-      <p class="count-txt">これまでに手がけた開発物件（建設中を含む）</p>
+      <p class="count-txt">これまでに手がけた開発物件</p>
     </div>
 
     <div class="bld-grid" id="bld"></div>
@@ -439,7 +433,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 (function(){
   // ===== 管理・開発物件リスト =====
   // 物件が増えたら、ここに1行追加するだけで一覧と棟数が自動で更新されます
-  // [物件名, 所在地・竣工年, 写真ファイル]
+  // [物件名, 所在地・竣工年（社内メモ用・HPには表示しない）, 写真ファイル]
   var items=[
     ["マガザン大森","大田区・建設中","img/b/73b5a8a8eb66.jpg"],
     ["マガザン上野広小路","文京区・建設中","img/b/73b5a8a8eb66.jpg"],
@@ -492,7 +486,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     var t=tones[i%tones.length],h=[220,160,250,190,140][i%5],win='';
     for(var k=0;k<Math.floor((h-20)/34);k++){win+='<rect x="162" y="'+(400-h+12+k*34)+'" width="76" height="22"/>';}
     var media=it[2]?'<img src="'+it[2]+'" alt="'+it[0]+'" loading="lazy">':'<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="400" fill="'+t[0]+'"/><rect x="150" y="'+(400-h)+'" width="100" height="'+h+'" fill="'+t[1]+'"/><g fill="#fff" fill-opacity=".35">'+win+'</g></svg>';
-    html+='<article class="bld rv"><div class="bld-img">'+media+'</div><h3>'+it[0]+'</h3><p>'+it[1]+'</p></article>';
+    html+='<article class="bld rv"><div class="bld-img">'+media+'</div><h3>'+it[0]+'</h3></article>';
   });
   g.innerHTML=html;
   // 棟数カウントアップ
