@@ -100,18 +100,26 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .svc p{font-size:14px;color:var(--sub);line-height:1.95}
 .svc .ico{position:absolute;top:clamp(28px,3vw,44px);right:clamp(28px,3vw,44px);width:36px;height:36px;color:var(--blue)}
 
-.biz{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,40px)}
-.biz-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 24px 60px -36px rgba(12,60,96,.45);transition:transform .5s cubic-bezier(.2,.7,.1,1),box-shadow .5s}
-.biz-card:hover{transform:translateY(-6px);box-shadow:0 32px 70px -36px rgba(12,60,96,.55)}
-.biz-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--navy)}
+.biz{display:grid;gap:24px}
+.biz-main,.biz-sub{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 24px 60px -36px rgba(12,60,96,.45);display:grid;transition:box-shadow .5s}
+.biz-main{grid-template-columns:1.35fr 1fr;height:clamp(380px,34vw,480px)}
+.biz-sub{grid-template-columns:220px 1fr;align-items:center}
+.biz-main:hover,.biz-sub:hover{box-shadow:0 32px 70px -36px rgba(12,60,96,.55)}
+.biz-img{position:relative;overflow:hidden;background:var(--navy);height:100%}
+.biz-sub .biz-img{aspect-ratio:4/3;height:auto}
 .biz-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);mix-blend-mode:luminosity;opacity:.85;transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}
 .biz-img::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(27,153,232,.35),rgba(12,60,96,.55))}
-.biz-card:hover .biz-img img{transform:scale(1.05)}
-.biz-no{position:absolute;left:24px;bottom:12px;z-index:2;font-weight:200;font-size:clamp(56px,6vw,88px);line-height:1;color:#fff}
-.biz-body{padding:clamp(24px,3vw,40px)}
+.biz-main:hover .biz-img img,.biz-sub:hover .biz-img img{transform:scale(1.05)}
+.biz-body{padding:clamp(28px,4vw,56px)}
+.biz-main .biz-body{display:flex;flex-direction:column;justify-content:center}
+.biz-sub .biz-body{padding:24px 32px}
 .biz-en{font-size:11px;letter-spacing:.3em;color:var(--blue);font-weight:600}
-.biz-body h3{font-size:clamp(20px,2vw,24px);font-weight:700;letter-spacing:.08em;margin:8px 0 14px}
-.biz-body p:last-child{font-size:14px;color:var(--sub);line-height:2}
+.biz-main h3{font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:.08em;margin:12px 0 20px;line-height:1.4}
+.biz-sub h3{font-size:17px;font-weight:700;letter-spacing:.08em;margin:4px 0 6px}
+.biz-main .biz-body>p:not(.biz-en){font-size:15px;color:var(--sub);line-height:2.1}
+.biz-sub .biz-body>p:not(.biz-en){font-size:13px;color:var(--sub);line-height:1.9}
+.biz-link{margin-top:28px;align-self:flex-start;color:var(--blue);font-weight:700;font-size:14px;letter-spacing:.1em;border-bottom:1px solid currentColor;padding-bottom:4px;transition:letter-spacing .3s}
+.biz-link:hover{letter-spacing:.16em}
 
 /* offering */
 .offering{background:var(--pale-2)}
@@ -158,11 +166,6 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 
 /* buildings */
 .buildings{background:var(--pale-2)}
-.count{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap;margin-bottom:40px}
-.count-num{font-weight:200;color:var(--blue);line-height:.9;display:flex;align-items:flex-end;gap:8px}
-.count-num .en{font-size:clamp(88px,12vw,168px);letter-spacing:-.02em}
-.count-num small{font-size:20px;font-weight:500;color:var(--navy);padding-bottom:14px}
-.count-txt{font-weight:500;letter-spacing:.1em;padding-bottom:18px}
 .bld-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px 16px}
 .bld{transition:opacity .3s}
 .bld.hide{display:none}
@@ -220,7 +223,8 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   .intro,.offer,.work,.work:nth-child(even),.ct,.cases{grid-template-columns:1fr}
   .work:nth-child(even) .work-img{order:0}
   .work-img{aspect-ratio:4/3}
-  .biz{grid-template-columns:1fr}
+  .biz-main{grid-template-columns:1fr;height:auto}
+  .biz-main .biz-img{aspect-ratio:16/10;height:auto}
   .bld-grid{grid-template-columns:repeat(3,1fr)}
   .scroll{display:none}
   .hero-art{opacity:.35}
@@ -228,6 +232,9 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
 @media (max-width:600px){
   body{font-size:14px}
   .svc-grid,.f2{grid-template-columns:1fr}
+  .biz-sub{grid-template-columns:96px 1fr;align-items:stretch}
+  .biz-sub .biz-img{aspect-ratio:auto;height:100%}
+  .biz-sub .biz-body{padding:16px 18px}
   .bld-grid{grid-template-columns:1fr 1fr;gap:16px 12px}
   .spec-r,.co-r{grid-template-columns:1fr;gap:2px}
 }
@@ -295,16 +302,17 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     </div>
 
     <div class="biz">
-      <article class="biz-card rv">
-        <div class="biz-img"><img src="img/b/f8bb180aa5a4.jpg" alt="マガザン中野" loading="lazy"><span class="biz-no en">01</span></div>
+      <article class="biz-main rv">
+        <div class="biz-img"><img src="img/b/f8bb180aa5a4.jpg" alt="マガザン中野" loading="lazy"></div>
         <div class="biz-body">
-          <p class="biz-en en">COMMERCIAL BUILDING</p>
+          <p class="biz-en en">MAIN BUSINESS — DEVELOPMENT</p>
           <h3>商業ビル建設事業</h3>
           <p>その土地ごとに周辺の環境に適応した設計を採用することによって、物件とテナントの利益を最大化します。</p>
+          <a href="#buildings" class="biz-link">開発物件を見る <span aria-hidden="true">→</span></a>
         </div>
       </article>
-      <article class="biz-card rv">
-        <div class="biz-img"><img src="img/b/9367e9d181b7.jpg" alt="マガザン三田慶應仲通り" loading="lazy"><span class="biz-no en">02</span></div>
+      <article class="biz-sub rv">
+        <div class="biz-img"><img src="img/b/9367e9d181b7.jpg" alt="マガザン三田慶應仲通り" loading="lazy"></div>
         <div class="biz-body">
           <p class="biz-en en">RENOVATION</p>
           <h3>中古物件再生事業</h3>
@@ -362,11 +370,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     <div class="head rv">
       <h2>Buildings<small>開発物件</small></h2>
       <span class="idx">03 / 04</span>
-    </div>
-
-    <div class="count rv">
-      <div class="count-num"><span class="en" id="cnt">0</span><small>棟</small></div>
-      <p class="count-txt">これまでに手がけた開発物件</p>
     </div>
 
     <div class="bld-grid" id="bld"></div>
@@ -489,11 +492,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     html+='<article class="bld rv"><div class="bld-img">'+media+'</div><h3>'+it[0]+'</h3></article>';
   });
   g.innerHTML=html;
-  // 棟数カウントアップ
-  var cnt=document.getElementById('cnt'),total=items.length,done=false;
-  if(total<10){var cb=cnt.closest('.count');if(cb)cb.style.display='none';}
-  function countUp(){if(done)return;done=true;var st=null;function f(ts){if(!st)st=ts;var r=Math.min((ts-st)/1400,1);cnt.textContent=Math.round(total*(1-Math.pow(1-r,3)));if(r<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
-  if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){countUp();o.disconnect()}}).observe(cnt)}else{cnt.textContent=total}
 
   var hd=document.getElementById('hd');
   function onScroll(){hd.classList.toggle('scrolled',window.scrollY>40)}
