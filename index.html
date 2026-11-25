@@ -80,8 +80,8 @@ body.menu-open .burger span:nth-child(2){top:19px;transform:rotate(-45deg)}
 @keyframes sc{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* section base */
-section{padding:clamp(96px,12vw,168px) 0;position:relative}
-.head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(48px,7vw,88px);flex-wrap:wrap}
+section{padding:clamp(64px,8vw,112px) 0;position:relative}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(28px,3.6vw,48px);flex-wrap:wrap}
 .head h2{font-family:var(--en);font-weight:200;font-size:clamp(40px,5.2vw,72px);line-height:1;letter-spacing:.01em;color:var(--navy)}
 .head h2 small{display:flex;align-items:center;gap:12px;font-family:var(--jp);font-size:clamp(16px,1.5vw,20px);font-weight:700;letter-spacing:.16em;margin-top:16px;color:var(--blue)}
 .head h2 small::before{content:"";width:10px;height:10px;background:var(--blue)}
@@ -188,6 +188,10 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .map-pts{position:absolute;top:clamp(12px,2vw,24px);left:clamp(12px,2vw,24px);right:clamp(12px,2vw,24px);bottom:clamp(12px,2vw,24px);width:calc(100% - 2*clamp(12px,2vw,24px));height:calc(100% - 2*clamp(12px,2vw,24px))}
 .pt{cursor:pointer;outline:none}.pt .dot{fill:#1B99E8;stroke:#fff;stroke-width:.8;transition:fill .2s}
 .pt .halo{fill:#1B99E8;opacity:.2;transform-box:fill-box;transform-origin:center;animation:pulse 2.8s infinite}
+.pt-out .ring{fill:#fff;stroke:#1B99E8;stroke-width:1}
+.pt-out .core{fill:#1B99E8}
+.pt-out .olab{fill:#0C3C60;font-size:4.6px;font-weight:700;font-family:var(--jp);letter-spacing:.2px;paint-order:stroke;stroke:#fff;stroke-width:1.4px}
+.pt-out:hover .ring,.pt-out.on .ring{fill:#DAEDFF}
 .pt:hover .dot,.pt.on .dot{fill:#0C3C60}
 @keyframes pulse{0%{transform:scale(.6);opacity:.35}100%{transform:scale(1.9);opacity:0}}
 .tip{position:absolute;z-index:3;pointer-events:none;background:#fff;border-radius:6px;box-shadow:0 12px 30px -10px rgba(12,60,96,.45);padding:8px;width:150px;transform:translate(-50%,calc(-100% - 12px));opacity:0;transition:opacity .2s}
@@ -646,18 +650,38 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   (function(){
     var svg=document.getElementById('pts'),map=document.getElementById('map'),tip=document.getElementById('tip');
     if(!svg)return;
-    var NS='http://www.w3.org/2000/svg',out=[],cur=null;
+    var NS='http://www.w3.org/2000/svg',out=[],cur=null,grp={};
     function px(lat,lon){return [614.54485*lon+42.46981*lat-86970.80204, 27.96001*lon-712.1151*lat+21843.56111];}
     items.forEach(function(it){
       if(it[3]==null)return;
       var p=px(it[3],it[4]);
-      if(p[0]<320||p[0]>506||p[1]<272||p[1]>428){out.push(it[0].replace('マガザン',''));return;}
+      if(p[0]<326||p[0]>500||p[1]<278||p[1]>422){var a=it[1].split('・')[0],k=/さいたま|川越/.test(a)?'埼玉':/横浜/.test(a)?'横浜':/川崎/.test(a)?'川崎':a.replace(/市$/,'');(grp[k]=grp[k]||{p:p,n:[]}).n.push(it[0]);return;}
       var g=document.createElementNS(NS,'g');g.setAttribute('class','pt');g.setAttribute('transform','translate('+p[0].toFixed(2)+','+p[1].toFixed(2)+')');
       g.innerHTML='<circle class="halo" r="4.5"/><circle class="dot" r="2.2"/>';
       g.setAttribute('tabindex','0');g.setAttribute('aria-label',it[0]);
       function show(){var r=g.querySelector('.dot').getBoundingClientRect(),m=map.getBoundingClientRect();
         tip.style.left=Math.min(Math.max(r.left-m.left+r.width/2,80),m.width-80)+'px';tip.style.top=(r.top-m.top)+'px';
         tip.querySelector('b').textContent=it[0];var im=tip.querySelector('img');if(it[2]){im.src=it[2];im.style.display='block'}else{im.style.display='none'}
+        if(cur)cur.classList.remove('on');cur=g;g.classList.add('on');tip.classList.add('show');}
+      function hide(){tip.classList.remove('show');g.classList.remove('on');}
+      g.addEventListener('mouseenter',show);g.addEventListener('mouseleave',hide);g.addEventListener('focus',show);g.addEventListener('blur',hide);
+      g.addEventListener('click',function(e){e.stopPropagation();show();});
+      svg.appendChild(g);
+    });
+    // 23区外：方角に合わせて地図の端に「エリア名＋件数」で表示
+    var C=[413,350],FIX={'埼玉':[363,286],'八王子':[327,386],'川崎':[327,393.5],'横浜':[327,401]};
+    Object.keys(grp).forEach(function(k){
+      var g0=grp[k],dx=g0.p[0]-C[0],dy=g0.p[1]-C[1],t=Infinity;
+      if(dx)t=Math.min(t,((dx>0?494:332)-C[0])/dx);if(dy)t=Math.min(t,((dy>0?414:284)-C[1])/dy);
+      var x=C[0]+dx*t,y=C[1]+dy*t;
+      if(FIX[k]){x=FIX[k][0];y=FIX[k][1];}
+      var g=document.createElementNS(NS,'g');g.setAttribute('class','pt pt-out');g.setAttribute('transform','translate('+x.toFixed(1)+','+y.toFixed(1)+')');
+      var lx=6,anc='start';
+      g.innerHTML='<circle class="ring" r="3.4"/><circle class="core" r="1.3"/><text class="olab" x="'+lx+'" y="1.6" text-anchor="'+anc+'">'+k+'方面 '+g0.n.length+'件</text>';
+      g.setAttribute('tabindex','0');g.setAttribute('aria-label',k+'方面：'+g0.n.join('、'));
+      function show(){var r=g.querySelector('.ring').getBoundingClientRect(),m=map.getBoundingClientRect();
+        tip.style.left=Math.min(Math.max(r.left-m.left+r.width/2,80),m.width-80)+'px';tip.style.top=(r.top-m.top)+'px';
+        tip.querySelector('img').style.display='none';tip.querySelector('b').innerHTML=g0.n.join('<br>');
         if(cur)cur.classList.remove('on');cur=g;g.classList.add('on');tip.classList.add('show');}
       function hide(){tip.classList.remove('show');g.classList.remove('on');}
       g.addEventListener('mouseenter',show);g.addEventListener('mouseleave',hide);g.addEventListener('focus',show);g.addEventListener('blur',hide);
