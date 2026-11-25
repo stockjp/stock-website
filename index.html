@@ -696,7 +696,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       var p=px(it[3],it[4]);
       if(p[0]<326||p[0]>500||p[1]<278||p[1]>422){var a=it[1].split('・')[0],k=/さいたま|川越/.test(a)?'埼玉':/横浜/.test(a)?'横浜':/川崎/.test(a)?'川崎':a.replace(/市$/,'');(grp[k]=grp[k]||{p:p,n:[]}).n.push(it[0]);return;}
       var g=document.createElementNS(NS,'g');g.setAttribute('class','pt');g.setAttribute('transform','translate('+p[0].toFixed(2)+','+p[1].toFixed(2)+')');
-      g.innerHTML='<circle class="halo" r="4.5"/><circle class="dot" r="2.2"/>';
+      g.innerHTML='<circle class="halo" r="3.6"/><circle class="dot" r="1.9"/>';
       g.setAttribute('tabindex','0');g.setAttribute('aria-label',it[0]);
       function show(){var r=g.querySelector('.dot').getBoundingClientRect(),m=map.getBoundingClientRect();
         tip.style.left=Math.min(Math.max(r.left-m.left+r.width/2,80),m.width-80)+'px';tip.style.top=(r.top-m.top)+'px';
@@ -707,6 +707,16 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       g.addEventListener('click',function(e){e.stopPropagation();show();});
       svg.appendChild(g);
     });
+    // 重なった点を少しずつ押し広げて、全物件が見えるようにする
+    (function(){
+      var gs=[].slice.call(svg.querySelectorAll('.pt')),P=gs.map(function(g){var m=g.getAttribute('transform').match(/translate\(([-\d.]+),([-\d.]+)\)/);return [+m[1],+m[2]];}),O=P.map(function(q){return q.slice();}),MIN=4.4;
+      for(var it=0;it<80;it++){var moved=false;
+        for(var i=0;i<P.length;i++)for(var j=i+1;j<P.length;j++){var dx=P[j][0]-P[i][0],dy=P[j][1]-P[i][1],d=Math.sqrt(dx*dx+dy*dy);
+          if(d<MIN){if(d<1e-3){var a=(i*2.399)%(2*Math.PI);dx=Math.cos(a);dy=Math.sin(a);d=1;}var push=(MIN-d)/2;dx/=d;dy/=d;P[i][0]-=dx*push;P[i][1]-=dy*push;P[j][0]+=dx*push;P[j][1]+=dy*push;moved=true;}}
+        for(var k=0;k<P.length;k++){P[k][0]+= (O[k][0]-P[k][0])*0.02;P[k][1]+=(O[k][1]-P[k][1])*0.02;}
+        if(!moved)break;}
+      gs.forEach(function(g,k){g.setAttribute('transform','translate('+P[k][0].toFixed(2)+','+P[k][1].toFixed(2)+')');});
+    })();
     // 23区外：方角に合わせて地図の端に「エリア名＋件数」で表示
     var C=[413,350],FIX={'埼玉':[363,286],'八王子':[327,386],'川崎':[327,393.5],'横浜':[327,401]};
     Object.keys(grp).forEach(function(k){
