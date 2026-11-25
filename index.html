@@ -84,7 +84,6 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .head h2{font-family:var(--en);font-weight:200;font-size:clamp(40px,5.2vw,72px);line-height:1;letter-spacing:.01em;color:var(--navy)}
 .head h2 small{display:flex;align-items:center;gap:12px;font-family:var(--jp);font-size:clamp(16px,1.5vw,20px);font-weight:700;letter-spacing:.16em;margin-top:16px;color:var(--blue)}
 .head h2 small::before{content:"";width:10px;height:10px;background:var(--blue)}
-.head .idx{font-family:var(--en);font-size:13px;letter-spacing:.24em;color:var(--mid)}
 
 /* about / services */
 .intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center;margin-bottom:clamp(64px,8vw,112px)}
@@ -196,6 +195,13 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .map-note{margin-top:14px;font-size:13px}
 @media (max-width:960px){.mapbox{grid-template-columns:1fr}.map-side{order:-1}}
 @media (prefers-reduced-motion:reduce){.pt .halo{animation:none}}
+.bld.more{display:none}
+.bld-grid.open .bld.more{display:block}
+.more-wrap{text-align:center;margin-top:32px}
+.more-btn{font:inherit;font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--blue);background:#fff;border:1px solid var(--blue);border-radius:999px;padding:14px 32px;cursor:pointer;transition:background .25s,color .25s}
+.more-btn:hover{background:var(--blue);color:#fff}
+.fab-top{position:fixed;right:16px;bottom:20px;z-index:40;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:18px;box-shadow:0 10px 24px -8px rgba(12,60,96,.5);opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .3s,transform .3s}
+.fab-top.show{opacity:1;pointer-events:auto;transform:none}
 .consult{margin-top:clamp(64px,8vw,104px);background:#fff;border-radius:8px;padding:clamp(28px,4vw,52px);display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;box-shadow:0 20px 60px -30px rgba(12,60,96,.3);border-left:4px solid var(--blue)}
 .consult .btn{margin-top:0}
 .offer-strong{display:inline-block;margin-top:10px;color:var(--navy);font-weight:700}
@@ -275,7 +281,8 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   .biz-sub{grid-template-columns:120px 1fr;align-items:stretch;height:auto}
   .biz-sub .biz-img{aspect-ratio:auto;height:100%}
   .biz-sub .biz-body{padding:16px 18px}
-  .bld-grid{grid-template-columns:1fr 1fr;gap:16px 12px}
+  .bld-grid{grid-template-columns:repeat(3,1fr);gap:14px 8px}
+  .bld h3{font-size:10.5px;letter-spacing:0;margin-top:6px}
   .spec-r,.co-r{grid-template-columns:1fr;gap:2px}
 }
 </style>
@@ -339,7 +346,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   <div class="wrap">
     <div class="head rv">
       <h2>Business<small>事業内容</small></h2>
-      <span class="idx">01 / 04</span>
     </div>
 
     <div class="biz">
@@ -371,7 +377,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   <div class="wrap">
     <div class="head rv">
       <h2>Offering<small>買取案件募集</small></h2>
-      <span class="idx">02 / 04</span>
     </div>
     <div class="offer">
       <div class="rv">
@@ -397,7 +402,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   <div class="wrap">
     <div class="head rv">
       <h2>Buildings<small>開発物件</small></h2>
-      <span class="idx">03 / 04</span>
     </div>
 
     <div class="mapbox rv">
@@ -414,6 +418,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     </div>
 
     <div class="bld-grid" id="bld"></div>
+    <div class="more-wrap" id="moreWrap"><button type="button" class="more-btn" id="moreBtn">すべての物件を見る <span aria-hidden="true">↓</span></button></div>
 
     <div class="consult rv">
       <div class="consult-fast">
@@ -436,7 +441,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   <div class="wrap">
     <div class="head rv">
       <h2>About Us<small>会社案内</small></h2>
-      <span class="idx">04 / 04</span>
     </div>
     <div class="ct">
       <div class="rv">
@@ -492,6 +496,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     </div>
   </div>
 </footer>
+<a href="#top" class="fab-top" id="fabTop" aria-label="ページの先頭へ戻る">↑</a>
 
 <script>
 (function(){
@@ -568,6 +573,22 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     html+='<article class="bld rv"><div class="bld-img">'+media+'</div><h3>'+it[0]+'</h3></article>';
   });
   g.innerHTML=html;
+
+  // 物件一覧：最初は数件だけ表示し「すべて見る」で展開
+  (function(){
+    var grid=document.getElementById('bld'),btn=document.getElementById('moreBtn'),wrap=document.getElementById('moreWrap');
+    var cards=grid.querySelectorAll('.bld'),N=window.matchMedia('(max-width:600px)').matches?12:15;
+    if(cards.length<=N){wrap.style.display='none';return;}
+    cards.forEach(function(c,i){if(i>=N)c.classList.add('more')});
+    btn.addEventListener('click',function(){
+      var open=grid.classList.toggle('open');
+      btn.innerHTML=open?'閉じる <span aria-hidden="true">↑</span>':'すべての物件を見る <span aria-hidden="true">↓</span>';
+      if(!open)document.getElementById('buildings').scrollIntoView({behavior:'smooth'});
+      grid.querySelectorAll('.bld.more').forEach(function(c){c.classList.add('in')});
+    });
+  })();
+  // 右下の「上へ戻る」ボタン
+  (function(){var f=document.getElementById('fabTop');function t(){f.classList.toggle('show',window.scrollY>window.innerHeight*1.2)}window.addEventListener('scroll',t,{passive:true});t();})();
 
   // ===== エリアマップ（パンフレットの地図に合わせて緯度経度を変換） =====
   (function(){
