@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no,address=no,email=no,date=no">
 <title>株式会社ストック | STOCK REAL ESTATE</title>
 <meta name="description" content="東京都内を中心に商業ビルの開発事業を展開している会社です。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -222,6 +223,7 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .co-r{display:grid;grid-template-columns:120px 1fr;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}
 .co-r dt{color:var(--sub)}
 .co-r dd{font-weight:500}
+.co-tel{color:inherit;text-decoration:none}
 .tel{font-family:var(--en);font-weight:300;font-size:clamp(32px,4vw,48px);letter-spacing:.04em;color:var(--blue);display:inline-block;margin-top:36px;line-height:1.2}
 .tel small{display:block;font-family:var(--jp);font-size:12px;color:var(--sub);letter-spacing:.1em;margin-top:6px}
 form.card{padding:clamp(28px,4vw,52px);display:grid;gap:22px}
@@ -283,7 +285,9 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   .biz-sub .biz-body{padding:16px 18px}
   .bld-grid{grid-template-columns:repeat(3,1fr);gap:14px 8px}
   .bld h3{font-size:10.5px;letter-spacing:0;margin-top:6px}
-  .spec-r,.co-r{grid-template-columns:1fr;gap:2px}
+  .spec-r{grid-template-columns:1fr;gap:2px}
+  .co-r{grid-template-columns:84px 1fr;gap:8px;padding:12px 0;font-size:13px;align-items:baseline}
+  .co-r dt{font-size:12px}
 }
 </style>
 </head>
@@ -446,10 +450,10 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       <div class="rv">
         <dl class="co">
           <div class="co-r"><dt>商号</dt><dd>株式会社ストック</dd></div>
-          <div class="co-r"><dt>所在地</dt><dd>東京都中央区日本橋茅場町1-2-12　共同ビル4Ｆ</dd></div>
+          <div class="co-r"><dt>所在地</dt><dd>東京都中央区日本橋茅場町1-2-12　<span style="white-space:nowrap">共同ビル4Ｆ</span></dd></div>
           <div class="co-r"><dt>設立</dt><dd>2009年10月</dd></div>
           <div class="co-r"><dt>代表取締役</dt><dd>松下　隼人</dd></div>
-          <div class="co-r"><dt>電話番号</dt><dd>03-6661-6181</dd></div>
+          <div class="co-r"><dt>電話番号</dt><dd><a href="tel:0366616181" class="co-tel">03-6661-6181</a></dd></div>
           <div class="co-r"><dt>免許番号</dt><dd>東京都知事（４）第91172号</dd></div>
         </dl>
       </div>
