@@ -129,7 +129,7 @@ section{padding:clamp(64px,8vw,112px) 0;position:relative}
 .biz-link:hover{letter-spacing:.16em}
 
 /* offering */
-.offering{background:radial-gradient(120% 90% at 85% 0%,#14558A 0%,#0C3C60 55%,#082C47 100%);color:#fff;overflow:hidden}
+.offering{background:radial-gradient(120% 90% at 85% 0%,#1B6FAE 0%,#14558A 50%,#0C3C60 100%);color:#fff;overflow:hidden}
 .offering::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%);pointer-events:none}
 .offering .wrap{position:relative}
 .offering .head h2{color:#fff}
@@ -248,7 +248,11 @@ section{padding:clamp(64px,8vw,112px) 0;position:relative}
 
 /* contact */
 .ct{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(40px,7vw,100px)}
-.co{border-top:1px solid var(--navy)}
+.co{border-top:1px solid var(--navy);display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(32px,5vw,72px)}
+.contact-sec{background:var(--pale-2)}
+.contact-sec form.card{gap:20px}
+.form-lead{font-size:13px;color:var(--sub);line-height:1.9;margin-top:-10px}
+label b{color:var(--blue);font-size:11px;margin-left:6px}
 .co-r{display:grid;grid-template-columns:120px 1fr;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px}
 .co-r dt{color:var(--sub)}
 .co-r dd{font-weight:500}
@@ -314,6 +318,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   .biz-sub .biz-body{padding:16px 18px}
   .bld-grid{grid-template-columns:repeat(3,1fr);gap:14px 8px}
   .bld h3{font-size:10.5px;letter-spacing:0;margin-top:6px}
+  .co{grid-template-columns:1fr}
   .spec-r{grid-template-columns:76px 1fr;gap:8px;padding:14px 20px;font-size:13px;align-items:baseline}
   .spec-h{padding:16px 20px}
   .co-r{grid-template-columns:84px 1fr;gap:8px;padding:12px 0;font-size:13px;align-items:baseline}
@@ -475,9 +480,8 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     <div class="head rv">
       <h2>About Us<small>会社案内</small></h2>
     </div>
-    <div class="ct">
-      <div class="rv">
-        <dl class="co">
+    <div class="rv">
+      <dl class="co">
           <div class="co-r"><dt>商号</dt><dd>株式会社ストック</dd></div>
           <div class="co-r"><dt>所在地</dt><dd>東京都中央区日本橋茅場町1-2-12　<span style="white-space:nowrap">共同ビル4Ｆ</span></dd></div>
           <div class="co-r"><dt>設立</dt><dd>2009年10月</dd></div>
@@ -485,19 +489,32 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
           <div class="co-r"><dt>電話番号</dt><dd><a href="tel:0366616181" class="co-tel">03-6661-6181</a></dd></div>
           <div class="co-r"><dt>免許番号</dt><dd>東京都知事（４）第91172号</dd></div>
         </dl>
-      </div>
-      <form class="card rv" id="contact" novalidate>
-        <p class="form-h">お問合せは以下よりお送り下さい</p>
-        <div class="f2">
-          <div><label for="f1">お名前</label><input id="f1" name="name" required autocomplete="name"></div>
-          <div><label for="f2">メールアドレス</label><input id="f2" name="email" type="email" required autocomplete="email"></div>
-        </div>
-        <div><label for="f3">件名</label><input id="f3" name="subject"></div>
-        <div><label for="f4">メッセージ</label><textarea id="f4" name="message" required></textarea></div>
-        <button type="submit" class="btn" style="justify-self:start;margin-top:4px">送信 <span aria-hidden="true">→</span></button>
-        <p class="sent" id="sent">メッセージを送信しました</p>
-      </form>
     </div>
+  </div>
+</section>
+
+<!-- CONTACT / 物件情報・お問い合わせ -->
+<section id="contact-sec" class="contact-sec">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Contact<small>物件情報・お問い合わせ</small></h2>
+    </div>
+    <form class="card rv" id="contact" novalidate>
+      <p class="form-h">物件のご紹介はこちらからお送りください</p>
+      <p class="form-lead">所在地・面積・価格など、分かる範囲でご記入ください。最短3時間で買付を提出いたします。その他のお問い合わせもこちらから承ります。</p>
+      <div class="f2">
+        <div><label for="f1">お名前<b>必須</b></label><input id="f1" name="name" required autocomplete="name"></div>
+        <div><label for="f5">会社名</label><input id="f5" name="company" autocomplete="organization"></div>
+      </div>
+      <div class="f2">
+        <div><label for="f2">メールアドレス<b>必須</b></label><input id="f2" name="email" type="email" required autocomplete="email"></div>
+        <div><label for="f6">電話番号</label><input id="f6" name="tel" type="tel" autocomplete="tel"></div>
+      </div>
+      <div><label for="f3">物件所在地</label><input id="f3" name="address" placeholder="例：東京都中央区日本橋茅場町1丁目"></div>
+      <div><label for="f4">物件情報・お問い合わせ内容<b>必須</b></label><textarea id="f4" name="message" required placeholder="面積・価格・現況（更地／古家付き など）・最寄駅など"></textarea></div>
+      <button type="submit" class="btn" style="justify-self:start;margin-top:4px">送信する <span aria-hidden="true">→</span></button>
+      <p class="sent" id="sent">送信しました。ありがとうございます。</p>
+    </form>
   </div>
 </section>
 </main>
