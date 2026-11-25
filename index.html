@@ -129,27 +129,29 @@ section{padding:clamp(64px,8vw,112px) 0;position:relative}
 .biz-link:hover{letter-spacing:.16em}
 
 /* offering */
-.offering{background:radial-gradient(120% 90% at 85% 0%,#1B6FAE 0%,#14558A 50%,#0C3C60 100%);color:#fff;overflow:hidden}
+.offering{background:radial-gradient(120% 90% at 85% 0%,#3AA8EC 0%,#1B7FC4 50%,#1468A8 100%);color:#fff;overflow:hidden}
 .offering::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%);pointer-events:none}
 .offering .wrap{position:relative}
 .offering .head h2{color:#fff}
-.offering .head h2 small{color:#7FCBF7}
-.offering .head h2 small::before{background:#7FCBF7}
+.offering .head h2 small{color:#fff}
+.offering .head h2 small::before{background:#fff}
 .offering .offer-lead{color:#fff}
-.offering .offer-lead em{color:#7FCBF7}
-.offering .offer-text{color:rgba(255,255,255,.75)}
-.offering .offer-strong{color:#fff;border-bottom:1px solid rgba(127,203,247,.6);padding-bottom:2px}
+.offering .offer-lead em{color:#fff;background:linear-gradient(transparent 68%,rgba(12,60,96,.35) 68%)}
+.offering .offer-text{color:rgba(255,255,255,.92)}
+.offering .offer-lead,.offering .head h2,.offering .offer-text{text-shadow:0 1px 12px rgba(12,60,96,.25)}
+.offering .offer-strong{color:#fff;border-bottom:1px solid rgba(255,255,255,.7);padding-bottom:2px}
 .offering .card{box-shadow:0 30px 70px -30px rgba(0,0,0,.55)}
 .offering .card{color:var(--navy)}
 .offering .card dt{color:var(--sub)}
-.fast{margin-top:32px;padding:22px 26px;border:1px solid rgba(127,203,247,.45);border-radius:8px;background:rgba(255,255,255,.06);max-width:520px}
+.fast{margin-top:32px;padding:22px 26px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:rgba(12,60,96,.32);max-width:520px}
 .fast-num{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;color:#fff;font-weight:700}
-.fast-num .en{font-size:clamp(56px,6vw,76px);font-weight:300;line-height:.9;color:#7FCBF7}
+.fast-num .en{font-size:clamp(56px,6vw,76px);font-weight:300;line-height:.9;color:#fff}
 .fast-u{font-size:22px}
 .fast-s{font-size:16px;letter-spacing:.08em}
-.fast-t{margin-top:10px;font-size:13px;line-height:1.9;color:rgba(255,255,255,.7)}
+.fast-t{margin-top:10px;font-size:13px;line-height:1.9;color:rgba(255,255,255,.88)}
 .offering .fast+.btn{margin-top:28px}
-.offering .btn{background:#1B99E8;box-shadow:0 12px 30px -12px rgba(27,153,232,.8)}
+.offering .btn{background:#fff;color:var(--blue);box-shadow:0 12px 30px -12px rgba(12,60,96,.5)}
+.offering .btn:hover{background:#EEF6FD}
 .offer{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px)}
 .offer-lead{font-size:clamp(22px,2.6vw,32px);font-weight:700;letter-spacing:.08em;line-height:1.7}
 .offer-lead em{font-style:normal;color:var(--blue)}
@@ -501,7 +503,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     </div>
     <form class="card rv" id="contact" novalidate>
       <p class="form-h">物件のご紹介はこちらからお送りください</p>
-      <p class="form-lead">所在地・面積・価格など、分かる範囲でご記入ください。担当者より折り返しご連絡いたします。<br>概要書・図面などの資料は、ご連絡の際にメールでお送りください。その他のお問い合わせもこちらから承ります。</p>
+      <p class="form-lead">所在地・面積・価格など、分かる範囲でご記入ください。担当者より折り返しご連絡いたします。<br>資料（概要書・図面等）をお持ちの場合は、折り返しのご連絡後にメールでお送りください。内容を確認のうえ、速やかにご回答いたします。</p>
       <div class="f2">
         <div><label for="f1">お名前<b>必須</b></label><input id="f1" name="name" required autocomplete="name"></div>
         <div><label for="f5">会社名</label><input id="f5" name="company" autocomplete="organization"></div>
