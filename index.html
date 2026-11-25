@@ -129,7 +129,27 @@ section{padding:clamp(64px,8vw,112px) 0;position:relative}
 .biz-link:hover{letter-spacing:.16em}
 
 /* offering */
-.offering{background:var(--pale-2)}
+.offering{background:radial-gradient(120% 90% at 85% 0%,#14558A 0%,#0C3C60 55%,#082C47 100%);color:#fff;overflow:hidden}
+.offering::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%);pointer-events:none}
+.offering .wrap{position:relative}
+.offering .head h2{color:#fff}
+.offering .head h2 small{color:#7FCBF7}
+.offering .head h2 small::before{background:#7FCBF7}
+.offering .offer-lead{color:#fff}
+.offering .offer-lead em{color:#7FCBF7}
+.offering .offer-text{color:rgba(255,255,255,.75)}
+.offering .offer-strong{color:#fff;border-bottom:1px solid rgba(127,203,247,.6);padding-bottom:2px}
+.offering .card{box-shadow:0 30px 70px -30px rgba(0,0,0,.55)}
+.offering .card{color:var(--navy)}
+.offering .card dt{color:var(--sub)}
+.fast{margin-top:32px;padding:22px 26px;border:1px solid rgba(127,203,247,.45);border-radius:8px;background:rgba(255,255,255,.06);max-width:520px}
+.fast-num{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;color:#fff;font-weight:700}
+.fast-num .en{font-size:clamp(56px,6vw,76px);font-weight:300;line-height:.9;color:#7FCBF7}
+.fast-u{font-size:22px}
+.fast-s{font-size:16px;letter-spacing:.08em}
+.fast-t{margin-top:10px;font-size:13px;line-height:1.9;color:rgba(255,255,255,.7)}
+.offering .fast+.btn{margin-top:28px}
+.offering .btn{background:#1B99E8;box-shadow:0 12px 30px -12px rgba(27,153,232,.8)}
 .offer{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px)}
 .offer-lead{font-size:clamp(22px,2.6vw,32px);font-weight:700;letter-spacing:.08em;line-height:1.7}
 .offer-lead em{font-style:normal;color:var(--blue)}
@@ -216,7 +236,7 @@ section{padding:clamp(64px,8vw,112px) 0;position:relative}
 .consult .btn{margin-top:0}
 .offer-strong{display:inline-block;margin-top:10px;color:var(--navy);font-weight:700}
 .spec-sub{font-size:12px;font-weight:400;color:var(--sub)}
-.consult{display:grid!important;grid-template-columns:auto 1fr auto;align-items:center}
+.consult{display:grid!important;grid-template-columns:1fr auto;align-items:center}
 .consult-fast{text-align:center;padding-right:clamp(20px,3vw,40px);border-right:1px solid var(--line);color:var(--navy)}
 .consult-fast-l{font-size:13px;font-weight:700;letter-spacing:.1em}
 .consult-fast-n{font-size:clamp(56px,6vw,80px);font-weight:300;line-height:1;color:var(--blue)}
@@ -294,7 +314,8 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   .biz-sub .biz-body{padding:16px 18px}
   .bld-grid{grid-template-columns:repeat(3,1fr);gap:14px 8px}
   .bld h3{font-size:10.5px;letter-spacing:0;margin-top:6px}
-  .spec-r{grid-template-columns:1fr;gap:2px}
+  .spec-r{grid-template-columns:76px 1fr;gap:8px;padding:14px 20px;font-size:13px;align-items:baseline}
+  .spec-h{padding:16px 20px}
   .co-r{grid-template-columns:84px 1fr;gap:8px;padding:12px 0;font-size:13px;align-items:baseline}
   .co-r dt{font-size:12px}
 }
@@ -395,6 +416,10 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
       <div class="rv">
         <p class="offer-lead">何卒、<em>物件のご紹介</em><br>よろしくお願いいたします。</p>
         <p class="offer-text">1都3県の駅10分以内、8坪～50坪程度の土地を中心に仕入れております。<br><strong class="offer-strong">飲み屋街や商店街沿いは、強く買っております。</strong></p>
+        <div class="fast">
+          <p class="fast-num"><span class="fast-s">最短</span><span class="en">3</span><span class="fast-u">時間</span><span class="fast-s">で買付提出</span></p>
+          <p class="fast-t">素早い回答をするための体制が整っております。プランニングのためにお時間を数日いただく必要もございません。</p>
+        </div>
         <a href="#contact" class="btn">物件情報を送る <span aria-hidden="true">→</span></a>
       </div>
       <dl class="card rv">
@@ -434,11 +459,6 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     <div class="more-wrap" id="moreWrap"><button type="button" class="more-btn" id="moreBtn">すべての物件を見る <span aria-hidden="true">↓</span></button></div>
 
     <div class="consult rv">
-      <div class="consult-fast">
-        <p class="consult-fast-l">最短</p>
-        <p class="consult-fast-n en">3<small>時間</small></p>
-        <p class="consult-fast-l">で買付提出</p>
-      </div>
       <div class="consult-main">
         <p class="consult-en en">FOR BROKERS</p>
         <p class="consult-h">仲介業者様へ　物件のご紹介をお待ちしております！</p>
