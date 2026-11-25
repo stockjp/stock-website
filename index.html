@@ -110,7 +110,7 @@ section{padding:clamp(96px,12vw,168px) 0;position:relative}
 .biz-sub .biz-img{height:100%}
 .biz-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);mix-blend-mode:luminosity;opacity:.85;transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}
 .biz-img::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(27,153,232,.35),rgba(12,60,96,.55))}
-.biz-slide img{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease,transform 1.2s cubic-bezier(.2,.7,.1,1)}
+.biz-slide img{position:absolute;inset:0;opacity:0;transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.7,.1,1)}
 .biz-slide img.on{opacity:.85}
 .biz-cap{transition:opacity .6s}
 .biz-cap.fade{opacity:0}
@@ -583,7 +583,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
   });
   g.innerHTML=html;
 
-  // 事業内容の写真：ランダムな物件から始めて、6秒ごとにゆっくり切り替え
+  // 事業内容の写真：ランダムな物件から始めて、4秒ごとに切り替え
   (function(){
     var PH='img/b/73b5a8a8eb66.jpg',pool=items.filter(function(it){return it[2]&&it[2]!==PH;});
     var box=document.getElementById('bizSlide');if(!box||!pool.length)return;
@@ -599,7 +599,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
         setTimeout(function(){cap.textContent=it[0];cap.classList.remove('fade');},700);};
       pre.src=it[2];
     }
-    setInterval(next,6000);
+    setInterval(next,4000);
   })();
 
   // 物件一覧：最初は数件だけ表示し「すべて見る」で展開
