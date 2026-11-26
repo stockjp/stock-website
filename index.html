@@ -202,6 +202,7 @@ section{padding:clamp(64px,8vw,112px) 0;position:relative}
 .bld-img img,.bld-img svg{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.1,1)}
 .bld:hover .bld-img img,.bld:hover .bld-img svg{transform:scale(1.06)}
 .bld-cat{position:absolute;left:8px;top:8px;font-size:10px;letter-spacing:.1em;background:rgba(255,255,255,.9);color:var(--blue);padding:2px 9px;border-radius:999px;font-weight:700}
+.bld-perse{position:absolute;right:6px;bottom:6px;font-size:10px;font-weight:700;letter-spacing:.06em;color:#fff;background:rgba(12,60,96,.75);padding:2px 8px;border-radius:999px}
 .bld h3{font-size:13px;font-weight:700;margin-top:10px;letter-spacing:.04em;line-height:1.5}
 .bld p{font-size:11px;color:var(--sub);line-height:1.6}
 .mapbox{display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(28px,4vw,56px);align-items:center;margin-bottom:clamp(56px,7vw,88px)}
@@ -588,7 +589,7 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     ["マガザン野毛Ⅱ", "横浜市", "img/b/noge2.jpg", 35.448, 139.629],
     ["マガザン野毛Ⅲ", "横浜市・開発中", "img/b/noge3.jpg", 35.4475, 139.63],
     ["マガザン神楽坂Ⅲ", "新宿区・開発中", "img/b/73b5a8a8eb66.jpg", 35.7025, 139.736],
-    ["マガザン八王子", "八王子市・開発中", "img/b/73b5a8a8eb66.jpg", 35.6555, 139.339],
+    ["マガザン八王子", "八王子市・開発中", "img/b/hachioji_perse.jpg", 35.6555, 139.339],
     ["マガザン大倉山", "横浜市・開発中", "img/b/okurayama.jpg", 35.522, 139.629],
     ["マガザン茗荷谷", "文京区・開発中", "img/b/73b5a8a8eb66.jpg", 35.717, 139.737],
     ["マガザン大井町", "品川区・開発中", "img/b/73b5a8a8eb66.jpg", 35.605, 139.734],
@@ -645,13 +646,14 @@ footer{background:var(--pale);padding:72px 0 36px;font-size:12px;color:var(--sub
     var t=tones[i%tones.length],h=[220,160,250,190,140][i%5],win='';
     for(var k=0;k<Math.floor((h-20)/34);k++){win+='<rect x="162" y="'+(400-h+12+k*34)+'" width="76" height="22"/>';}
     var media=it[2]?'<img src="'+it[2]+'" alt="'+it[0]+'" loading="lazy">':'<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="400" fill="'+t[0]+'"/><rect x="150" y="'+(400-h)+'" width="100" height="'+h+'" fill="'+t[1]+'"/><g fill="#fff" fill-opacity=".35">'+win+'</g></svg>';
-    html+='<article class="bld rv"><div class="bld-img">'+media+'</div><h3>'+it[0]+'</h3></article>';
+    var badge=/_perse\./.test(it[2])?'<span class="bld-perse">完成予想図</span>':'';
+    html+='<article class="bld rv"><div class="bld-img">'+media+badge+'</div><h3>'+it[0]+'</h3></article>';
   });
   g.innerHTML=html;
 
   // 事業内容の写真：ランダムな物件から始めて、4秒ごとに切り替え
   (function(){
-    var PH='img/b/73b5a8a8eb66.jpg',pool=items.filter(function(it){return it[2]&&it[2]!==PH;});
+    var PH='img/b/73b5a8a8eb66.jpg',pool=items.filter(function(it){return it[2]&&it[2]!==PH&&!/_perse\./.test(it[2]);});
     var box=document.getElementById('bizSlide');if(!box||!pool.length)return;
     for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=pool[i];pool[i]=pool[j];pool[j]=t;}
     var imgs=box.querySelectorAll('img'),cap=document.getElementById('bizMainCap'),k=0,cur=0;
